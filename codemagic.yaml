@@ -1,0 +1,21 @@
+workflows:
+  apk:
+    name: TG Finder APK
+    instance_type: linux_x2
+    max_build_duration: 30
+    environment:
+      flutter: stable
+    scripts:
+      - name: Generar proyecto Android
+        script: |
+          mkdir /tmp/bk && cp -r lib pubspec.yaml /tmp/bk/
+          flutter create --platforms=android --org com.buscador --project-name tg_finder .
+          cp -r /tmp/bk/lib/* lib/ && cp /tmp/bk/pubspec.yaml pubspec.yaml
+          sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' android/app/src/main/AndroidManifest.xml
+          sed -i 's#android:label="[^"]*"#android:label="TG Finder"#' android/app/src/main/AndroidManifest.xml
+      - name: Dependencias
+        script: flutter pub get
+      - name: Compilar APK
+        script: flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk

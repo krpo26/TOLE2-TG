@@ -1,0 +1,16 @@
+name: tg_finder
+description: Buscador de canales y archivos de Telegram (TDLib)
+publish_to: none
+version: 2.0.0+2
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  handy_tdlib_next: ^2.3.14   # solo aporta libtdjson.so para Android
+  ffi: ^2.1.2
+  path_provider: ^2.1.3
+  shared_preferences: ^2.2.3
+  url_launcher: ^6.2.5
+flutter:
+  uses-material-design: true
